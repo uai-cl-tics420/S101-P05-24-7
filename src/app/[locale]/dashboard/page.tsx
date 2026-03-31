@@ -3,8 +3,10 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 export default function DashboardPage() {
+  const t = useTranslations("DashboardCommon");
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -28,7 +30,7 @@ export default function DashboardPage() {
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
         <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-        <p className="mt-4 text-slate-600">Redirecting to your dashboard...</p>
+        <p className="mt-4 text-slate-600">{t('redirecting')}</p>
       </div>
     </div>
   );

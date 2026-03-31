@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import {
   PackageCheck,
@@ -79,48 +80,42 @@ function SpotlightCard({
 
 // ── Bento card data ───────────────────────────────────────────────────────────
 
-const BENTO_CARDS: (BentoCardProps & { gridClass: string })[] = [
+const BENTO_CARDS: (BentoCardProps & { gridClass: string, titleKey: any, descKey: any, badgeKey?: any })[] = [
   {
-    title: "Package Registration",
-    description:
-      "Log every incoming parcel with apartment number, carrier, and a unique tracking code. Concierges register deliveries in seconds — residents are notified automatically.",
+    title: "", titleKey: "card1Title",
+    description: "", descKey: "card1Desc",
     icon: <PackageCheck className="w-6 h-6" strokeWidth={1.5} />,
-    badge: "Core feature",
+    badgeKey: "card1Badge",
     gridClass: "md:col-span-2 md:row-span-2",
   },
   {
-    title: "QR Scanning",
-    description:
-      "Generate a unique QR code per parcel. Residents scan it on pickup for frictionless, verified retrieval.",
+    title: "", titleKey: "card2Title",
+    description: "", descKey: "card2Desc",
     icon: <QrCode className="w-5 h-5" strokeWidth={1.5} />,
     gridClass: "md:col-span-2",
   },
   {
-    title: "Push Notifications",
-    description:
-      "Real-time Web Push alerts to residents when a parcel arrives or is ready for pickup.",
+    title: "", titleKey: "card3Title",
+    description: "", descKey: "card3Desc",
     icon: <Bell className="w-5 h-5" strokeWidth={1.5} />,
     gridClass: "md:col-span-1",
   },
   {
-    title: "Delivery History",
-    description:
-      "Full audit trail — reception date, pickup date, and who collected each parcel.",
+    title: "", titleKey: "card4Title",
+    description: "", descKey: "card4Desc",
     icon: <Clock className="w-5 h-5" strokeWidth={1.5} />,
     gridClass: "md:col-span-1",
   },
   {
-    title: "Cloud Deploy",
-    description:
-      "Frontend on Vercel, database on Railway. CI/CD pipeline ready for Sprint 5.",
+    title: "", titleKey: "card5Title",
+    description: "", descKey: "card5Desc",
     icon: <Cloud className="w-5 h-5" strokeWidth={1.5} />,
-    badge: "Sprint 5",
+    badgeKey: "card5Badge",
     gridClass: "md:col-span-2",
   },
   {
-    title: "Concierge Dashboard",
-    description:
-      "Overview of pending parcels, delivered items, and resident management — all in one panel.",
+    title: "", titleKey: "card6Title",
+    description: "", descKey: "card6Desc",
     icon: <LayoutDashboard className="w-5 h-5" strokeWidth={1.5} />,
     gridClass: "md:col-span-2",
   },
@@ -129,6 +124,8 @@ const BENTO_CARDS: (BentoCardProps & { gridClass: string })[] = [
 // ── Page ──────────────────────────────────────────────────────────────────────
 
 export default function Home() {
+  const t = useTranslations("Index");
+
   return (
     <div className="flex flex-col">
       {/* ── Hero ───────────────────────────────────────────────────── */}
@@ -151,7 +148,7 @@ export default function Home() {
         <div className="relative inline-flex items-center gap-2 border border-indigo-500/20 bg-indigo-500/5 rounded-full px-4 py-1.5 mb-8">
           <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
           <span className="text-xs font-semibold text-indigo-300 tracking-widest uppercase">
-            Sprint 1 — Preview
+            {t('sprintPreview')}
           </span>
         </div>
 
@@ -160,17 +157,14 @@ export default function Home() {
           className="relative text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-[#f1f0ff] mb-6 leading-[1.08]"
           style={{ fontFamily: "var(--font-syne)" }}
         >
-          Building{" "}
           <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-            Package
+            {t('title')}
           </span>
-          <br />
-          Management
         </h1>
 
         {/* Subtitle */}
         <p className="relative text-xl text-white/50 max-w-md mb-10 leading-relaxed">
-          Streamline deliveries for every resident.
+          {t('subtitle')}
         </p>
 
         {/* CTA buttons */}
@@ -179,10 +173,10 @@ export default function Home() {
             href="/login"
             className="inline-flex items-center justify-center rounded-lg bg-indigo-600 px-6 py-3 text-sm font-semibold text-white shadow-[0_0_24px_rgba(99,102,241,0.35)] hover:bg-indigo-500 transition-all duration-200 cursor-pointer"
           >
-            Get Started
+            {t('ctaGetStarted')}
           </Link>
           <button className="inline-flex items-center justify-center rounded-lg border border-white/10 px-6 py-3 text-sm font-semibold text-white/60 hover:bg-white/[0.05] hover:text-white transition-all duration-200 cursor-pointer">
-            View Demo
+            {t('ctaViewDemo')}
           </button>
         </div>
       </section>
@@ -192,11 +186,11 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
           {BENTO_CARDS.map((card) => (
             <SpotlightCard
-              key={card.title}
-              title={card.title}
-              description={card.description}
+              key={card.titleKey}
+              title={t(card.titleKey)}
+              description={t(card.descKey)}
               icon={card.icon}
-              badge={card.badge}
+              badge={card.badgeKey ? t(card.badgeKey) : undefined}
               className={card.gridClass}
             />
           ))}

@@ -4,21 +4,23 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { PackageCheck } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 interface NavLink {
-  label: string;
+  labelKey: any;
   href: string;
 }
 
 const NAV_LINKS: NavLink[] = [
-  { label: "Dashboard", href: "/dashboard" },
-  { label: "Register", href: "/register" },
-  { label: "Scan QR", href: "/scan" },
+  { labelKey: "dashboard", href: "/dashboard" },
+  { labelKey: "register", href: "/register" },
+  { labelKey: "scan", href: "/scan" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const t = useTranslations("Navbar");
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -53,7 +55,7 @@ export default function Navbar() {
                 href={link.href}
                 className="text-sm text-white/60 hover:text-white transition-colors duration-200"
               >
-                {link.label}
+                {t(link.labelKey)}
               </Link>
             ))}
           </div>
@@ -62,13 +64,13 @@ export default function Navbar() {
           <div className="flex items-center gap-2 md:gap-3 shrink-0">
             {/* Language toggle */}
             <div className="hidden sm:flex items-center border border-white/10 rounded-full px-2 py-1 gap-1">
-              <button className="text-xs text-white/60 hover:text-white transition-colors duration-200 px-1 cursor-pointer">
+              <Link href="/es" className="text-xs text-white/60 hover:text-white transition-colors duration-200 px-1 cursor-pointer">
                 ES
-              </button>
+              </Link>
               <span className="text-white/20 text-xs select-none">|</span>
-              <button className="text-xs text-white/60 hover:text-white transition-colors duration-200 px-1 cursor-pointer">
+              <Link href="/en" className="text-xs text-white/60 hover:text-white transition-colors duration-200 px-1 cursor-pointer">
                 EN
-              </button>
+              </Link>
             </div>
 
             {/* Login button */}
@@ -76,7 +78,7 @@ export default function Navbar() {
               href="/login"
               className="hidden sm:inline-flex items-center border border-indigo-500/50 text-indigo-300 rounded-lg px-4 py-1.5 text-sm hover:bg-indigo-600 hover:text-white transition-all duration-200 cursor-pointer"
             >
-              Login
+              {t("login")}
             </Link>
 
             {/* Mobile hamburger */}
@@ -117,26 +119,26 @@ export default function Navbar() {
               href={link.href}
               className="text-sm text-white/60 hover:text-white transition-colors duration-200 py-2.5 px-3 rounded-xl hover:bg-white/[0.04] cursor-pointer"
             >
-              {link.label}
+              {t(link.labelKey)}
             </Link>
           ))}
 
           <div className="border-t border-white/[0.06] mt-2 pt-3 flex items-center gap-3">
             <div className="flex items-center border border-white/10 rounded-full px-2 py-1 gap-1">
-              <button className="text-xs text-white/60 hover:text-white transition-colors px-1 cursor-pointer">
+              <Link href="/es" className="text-xs text-white/60 hover:text-white transition-colors px-1 cursor-pointer">
                 ES
-              </button>
+              </Link>
               <span className="text-white/20 text-xs select-none">|</span>
-              <button className="text-xs text-white/60 hover:text-white transition-colors px-1 cursor-pointer">
+              <Link href="/en" className="text-xs text-white/60 hover:text-white transition-colors px-1 cursor-pointer">
                 EN
-              </button>
+              </Link>
             </div>
 
             <Link
               href="/login"
               className="flex-1 text-center border border-indigo-500/50 text-indigo-300 rounded-lg px-4 py-2 text-sm hover:bg-indigo-600 hover:text-white transition-all duration-200 cursor-pointer"
             >
-              Login
+              {t("login")}
             </Link>
           </div>
         </div>

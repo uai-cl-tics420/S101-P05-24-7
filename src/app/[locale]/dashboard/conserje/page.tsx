@@ -3,8 +3,11 @@
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 export default function ConciergeDashboard() {
+  const t = useTranslations("Concierge");
+  const tCommon = useTranslations("DashboardCommon");
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -19,7 +22,7 @@ export default function ConciergeDashboard() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
-          <p className="mt-4 text-slate-600">Loading...</p>
+          <p className="mt-4 text-slate-600">{tCommon('loading')}</p>
         </div>
       </div>
     );
@@ -32,17 +35,17 @@ export default function ConciergeDashboard() {
         <div className="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold text-slate-900">
-              Concierge Dashboard
+              {t('title')}
             </h1>
             <p className="text-slate-600 mt-2">
-              Manage parcels and residents
+              {t('subtitle')}
             </p>
           </div>
           <button
             onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
             className="px-6 py-2 bg-slate-100 hover:bg-slate-200 text-slate-900 rounded-lg font-semibold transition-colors"
           >
-            Sign Out
+            {t('signOut')}
           </button>
         </div>
       </div>
@@ -54,13 +57,13 @@ export default function ConciergeDashboard() {
           <div className="flex items-start justify-between">
             <div>
               <h2 className="text-xl font-semibold text-slate-900 mb-2">
-                Welcome, {session?.user?.name}!
+                {t('welcome')}, {session?.user?.name}!
               </h2>
               <p className="text-slate-600">
-                Email: {session?.user?.email}
+                {t('email')}: {session?.user?.email}
               </p>
               <p className="text-sm text-slate-500 mt-2">
-                Role: <span className="font-semibold text-indigo-600">CONCIERGE</span>
+                {t('role')}: <span className="font-semibold text-indigo-600">CONCIERGE</span>
               </p>
             </div>
             {session?.user?.image && (
@@ -78,7 +81,7 @@ export default function ConciergeDashboard() {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-600 text-sm">Total Parcels</p>
+                <p className="text-slate-600 text-sm">{t('totalParcels')}</p>
                 <p className="text-3xl font-bold text-slate-900 mt-2">--</p>
               </div>
               <div className="p-3 bg-blue-100 rounded-lg">
@@ -102,7 +105,7 @@ export default function ConciergeDashboard() {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-600 text-sm">Pending Delivery</p>
+                <p className="text-slate-600 text-sm">{t('pendingDelivery')}</p>
                 <p className="text-3xl font-bold text-slate-900 mt-2">--</p>
               </div>
               <div className="p-3 bg-yellow-100 rounded-lg">
@@ -126,7 +129,7 @@ export default function ConciergeDashboard() {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-600 text-sm">Delivered Today</p>
+                <p className="text-slate-600 text-sm">{t('deliveredToday')}</p>
                 <p className="text-3xl font-bold text-slate-900 mt-2">--</p>
               </div>
               <div className="p-3 bg-green-100 rounded-lg">
@@ -151,14 +154,14 @@ export default function ConciergeDashboard() {
         {/* Coming Soon */}
         <div className="bg-indigo-50 border border-indigo-200 rounded-lg p-6">
           <h3 className="text-lg font-semibold text-indigo-900 mb-2">
-            Dashboard Features Coming Soon
+            {t('comingSoonTitle')}
           </h3>
           <ul className="text-indigo-800 space-y-1 text-sm">
-            <li>✓ Parcel registration and management</li>
-            <li>✓ Real-time notifications</li>
-            <li>✓ QR code generation and scanning</li>
-            <li>✓ Resident management</li>
-            <li>✓ Delivery tracking and statistics</li>
+            <li>✓ {t('f1')}</li>
+            <li>✓ {t('f2')}</li>
+            <li>✓ {t('f3')}</li>
+            <li>✓ {t('f4')}</li>
+            <li>✓ {t('f5')}</li>
           </ul>
         </div>
       </div>
