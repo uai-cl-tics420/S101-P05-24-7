@@ -20,7 +20,7 @@ const INITIAL_FORM = {
   description: "",
 };
 
-export default function PackageRegistrationForm() {
+export default function PackageRegistrationForm({ onSuccess }: { onSuccess?: () => void }) {
   const t = useTranslations("PackageForm");
   const [form, setForm] = useState(INITIAL_FORM);
   const [state, setState] = useState<FormState>({ status: "idle", message: "" });
@@ -69,6 +69,7 @@ export default function PackageRegistrationForm() {
         registeredPackage: data.package,
       });
       setForm(INITIAL_FORM);
+      if (onSuccess) onSuccess();
     } catch {
       setState({ status: "error", message: t("errorNetwork") });
     }

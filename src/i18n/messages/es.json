@@ -101,6 +101,15 @@
     "totalParcels": "Total Encomiendas",
     "pendingDelivery": "Entregas Pendientes",
     "deliveredToday": "Entregados Hoy",
+    "recentPackages": "Encomiendas Recientes",
+    "tracking": "Seguimiento",
+    "apt": "Depto",
+    "status": "Estado",
+    "date": "Fecha",
+    "noPackages": "No has registrado encomiendas aún.",
+    "statusPENDING": "Pendiente",
+    "statusNOTIFIED": "Notificado",
+    "statusDELIVERED": "Entregado",
     "comingSoonTitle": "Próximas Funcionalidades",
     "f1": "Registro y gestión de encomiendas",
     "f2": "Notificaciones en tiempo real",
@@ -109,6 +118,7 @@
     "f5": "Estadísticas y seguimiento de envíos"
   },
   "Resident": {
+    "trackingLabel": "Seguimiento",
     "title": "Mis Encomiendas",
     "subtitle": "Rastrea y gestiona tus pedidos",
     "signOut": "Cerrar Sesión",
@@ -125,7 +135,18 @@
     "f2": "Notificaciones en tiempo real",
     "f3": "Escaneo de código QR para retiro",
     "f4": "Historial de envíos",
-    "f5": "Rastreo de paquetes"
+    "f5": "Rastreo de paquetes",
+    "pushTitle": "Notificaciones Instantáneas",
+    "pushDesc": "Recibe una alerta en tu navegador apenas llegue un paquete a tu nombre.",
+    "pushEnabled": "Notificaciones Activadas",
+    "pushDisabled": "Activar Notificaciones",
+    "pushLoading": "Configurando...",
+    "pushUnsupported": "Navegador no compatible con Push",
+    "editApartment": "Editar Depto",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "aptPlaceholder": "Depto (ej: 401)",
+    "towerPlaceholderShort": "Torre (opcional)"
   },
   "Index": {
     "title": "Gestión de Encomiendas",

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
+import webpush from "@/lib/webpush";
 
 // ── Input validation schema ───────────────────────────────────────────────────
 const registerPackageSchema = z.object({
@@ -94,10 +95,58 @@ export async function POST(request: NextRequest) {
     },
   });
 
+  // ── 6. Push Notification to Residents ─────────────────────────────────────
+  // Find residents of this apartment with active push subscriptions
+  const residents = await prisma.user.findMany({
+    where: { apartmentId: apartment.id },
+    include: { pushSubscriptions: true },
+  });
+
+  const pushPayload = JSON.stringify({
+    title: "¡Nuevo Paquete Recibido!",
+    body: `Se ha registrado un paquete con seguimiento ${trackingCode} para tu departamento ${apartmentNumber}.`,
+    url: "/dashboard/resident",
+    icon: "/icons/icon-192x192.png", // Ensure this exists or use a generic one
+  });
+
+  const pushPromises = residents.flatMap((resident) =>
+    resident.pushSubscriptions.map((sub) =>
+      webpush
+        .sendNotification(
+          {
+            endpoint: sub.endpoint,
+            keys: {
+              p256dh: sub.p256dh,
+              auth: sub.auth,
+            },
+          },
+          pushPayload
+        )
+        .catch((err) => {
+          console.error(`Error sending push to ${resident.email}:`, err);
+          if (err.statusCode === 404 || err.statusCode === 410) {
+            // Subscription expired or no longer valid, we should delete it
+            return prisma.pushSubscription.delete({ where: { id: sub.id } });
+          }
+        })
+    )
+  );
+
+  // We don't await all of them to not block the response, but we can fire and forget or use waitUntil if in Edge
+  Promise.all(pushPromises).then(() => {
+    if (pushPromises.length > 0) {
+      prisma.package.update({
+        where: { id: newPackage.id },
+        data: { status: "NOTIFIED", notifiedAt: new Date() }
+      }).catch(console.error);
+    }
+  });
+
   return NextResponse.json(
     {
       message: "Package registered successfully",
       package: newPackage,
+      notifiedResidents: residents.length,
     },
     { status: 201 }
   );

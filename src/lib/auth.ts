@@ -52,33 +52,38 @@ export const authOptions: NextAuthOptions = {
       return baseUrl;
     },
 
-    async jwt({ token, user, trigger }) {
-      // On initial sign-in, seed the token with user data from DB
+    async jwt({ token, user }) {
+      // 1. On initial sign-in, user object is available
       if (user) {
         token.id = user.id;
         token.role = user.role;
-        return token;
       }
 
-      // On every subsequent request OR after an explicit session update,
-      // re-read the role from the DB so role changes (via set-role) are
-      // picked up without requiring the user to sign out and back in.
-      if (token.id && (trigger === "update" || !token.role)) {
+      // 2. Always fetch the latest role and apartment from the database 
+      // to ensure the session is always in sync.
+      if (token.id) {
         const dbUser = await prisma.user.findUnique({
           where: { id: token.id as string },
-          select: { role: true },
+          select: { 
+            role: true,
+            apartment: true 
+          },
         });
-        if (dbUser) token.role = dbUser.role;
+        if (dbUser) {
+          token.role = dbUser.role;
+          token.apartment = dbUser.apartment;
+        }
       }
 
       return token;
     },
 
     async session({ session, token }) {
-      // Surface id and role to the client session object
+      // Surface id, role, and apartment to the client session object
       if (session.user) {
         session.user.id = token.id as string;
         session.user.role = token.role as import("@prisma/client").UserRole;
+        (session.user as any).apartment = token.apartment;
       }
       return session;
     },
