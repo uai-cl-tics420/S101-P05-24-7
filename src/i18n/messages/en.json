@@ -172,6 +172,8 @@
     "successMessage": "Package registered successfully",
     "trackingLabel": "Tracking",
     "errorGeneric": "An error occurred while registering the package",
-    "errorNetwork": "Connection error. Check your network and try again"
+    "errorNetwork": "Connection error. Check your network and try again",
+    "perishableLabel": "Is perishable / urgent",
+    "perishableDesc": "Mark if it requires refrigeration or fast delivery"
   }
 }

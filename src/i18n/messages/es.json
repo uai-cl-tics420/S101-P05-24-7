@@ -172,6 +172,8 @@
     "successMessage": "Encomienda registrada exitosamente",
     "trackingLabel": "Tracking",
     "errorGeneric": "Ocurrió un error al registrar la encomienda",
-    "errorNetwork": "Error de conexión. Verifica tu red e intenta nuevamente"
+    "errorNetwork": "Error de conexión. Verifica tu red e intenta nuevamente",
+    "perishableLabel": "Es perecible / urgente",
+    "perishableDesc": "Márcalo si requiere refrigeración o es entrega rápida"
   }
 }

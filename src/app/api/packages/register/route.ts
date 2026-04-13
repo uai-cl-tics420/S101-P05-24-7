@@ -18,6 +18,7 @@ const registerPackageSchema = z.object({
     .trim(),
   tower: z.string().max(20).trim().optional().or(z.literal("")),
   description: z.string().max(500).trim().optional().or(z.literal("")),
+  isPerishable: z.boolean().optional().default(false),
 });
 
 export async function POST(request: NextRequest) {
@@ -54,7 +55,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { trackingCode, apartmentNumber, tower, description } = parsed.data;
+  const { trackingCode, apartmentNumber, tower, description, isPerishable } = parsed.data;
 
   // ── 3. Upsert apartment (create if not exists) ────────────────────────────
   const apartment = await prisma.apartment.upsert({
@@ -85,6 +86,7 @@ export async function POST(request: NextRequest) {
     data: {
       trackingCode,
       description: description || null,
+      isPerishable,
       status: "PENDING",
       apartmentId: apartment.id,
       registeredById: token.id as string,
@@ -103,8 +105,12 @@ export async function POST(request: NextRequest) {
   });
 
   const pushPayload = JSON.stringify({
-    title: "¡Nuevo Paquete Recibido!",
-    body: `Se ha registrado un paquete con seguimiento ${trackingCode} para tu departamento ${apartmentNumber}.`,
+    title: isPerishable 
+      ? "ATENCION: Paquete Urgente / Perecedero Recibido" 
+      : "Nuevo paquete recibido",
+    body: isPerishable
+      ? `Se ha registrado un paquete perecedero o urgente con seguimiento ${trackingCode} para el departamento ${apartmentNumber}. Se requiere pronto retiro.`
+      : `Se ha registrado un paquete con seguimiento ${trackingCode} para el departamento ${apartmentNumber}.`,
     url: "/dashboard/resident",
     icon: "/icons/icon-192x192.png", // Ensure this exists or use a generic one
   });

@@ -18,6 +18,7 @@ const INITIAL_FORM = {
   apartmentNumber: "",
   tower: "",
   description: "",
+  isPerishable: false,
 };
 
 export default function PackageRegistrationForm({ onSuccess }: { onSuccess?: () => void }) {
@@ -50,6 +51,7 @@ export default function PackageRegistrationForm({ onSuccess }: { onSuccess?: () 
           apartmentNumber: form.apartmentNumber,
           tower: form.tower,
           description: form.description,
+          isPerishable: form.isPerishable,
         }),
       });
 
@@ -220,6 +222,26 @@ export default function PackageRegistrationForm({ onSuccess }: { onSuccess?: () 
             placeholder={t("descriptionPlaceholder")}
             className="w-full px-4 py-2.5 rounded-lg border border-slate-300 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none transition-shadow"
           />
+        </div>
+
+        {/* Perishable / Urgent Checkbox */}
+        <div className="flex items-start gap-3 p-4 border border-red-100 bg-red-50/50 rounded-lg">
+          <div className="flex items-center h-5">
+            <input
+              id="isPerishable"
+              name="isPerishable"
+              type="checkbox"
+              checked={form.isPerishable}
+              onChange={(e) => setForm((prev) => ({ ...prev, isPerishable: e.target.checked }))}
+              className="w-4 h-4 text-red-600 bg-white border-red-300 rounded focus:ring-red-500 focus:ring-2 cursor-pointer"
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="isPerishable" className="text-sm font-semibold text-red-900 cursor-pointer">
+              {t("perishableLabel")}
+            </label>
+            <p className="text-xs text-red-700 mt-0.5">{t("perishableDesc")}</p>
+          </div>
         </div>
 
         {/* Submit */}
