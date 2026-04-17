@@ -23,6 +23,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   apartmentId   String?
   apartment     Apartment? @relation(fields: [apartmentId], references: [id])
+  onboardingComplete Boolean @default(false)
 
   accounts           Account[]
   sessions           Session[]

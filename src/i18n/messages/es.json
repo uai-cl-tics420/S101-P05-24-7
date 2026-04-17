@@ -5,6 +5,33 @@
     "scan": "Escanear QR",
     "login": "Ingresar"
   },
+  "onboarding": {
+    "title": "Bienvenido a Gestión de Encomiendas",
+    "subtitle": "Completa tu perfil para continuar",
+    "step1": {
+      "title": "¿Cuál es tu rol?",
+      "concierge": "Soy Conserje",
+      "conciergeDesc": "Gestiono las encomiendas del edificio",
+      "resident": "Soy Residente",
+      "residentDesc": "Recibo encomiendas en mi departamento"
+    },
+    "step2": {
+      "title": "¿En qué departamento vives?",
+      "placeholder": "Selecciona tu departamento",
+      "noApartments": "No hay departamentos registrados. Contacta al conserje."
+    },
+    "step3": {
+      "title": "¡Todo listo!",
+      "subtitle": "Tu perfil ha sido configurado",
+      "cta": "Acceder al sistema"
+    },
+    "progress": "Paso {current} de {total}",
+    "continue": "Continuar",
+    "back": "Retroceder",
+    "role": "Rol",
+    "apartment": "Departamento",
+    "tower": "Torre"
+  },
   "Home": {
     "eyebrow": "Gestión de Encomiendas · Edificios Residenciales",
     "heroTitle1": "LOOMBOX",

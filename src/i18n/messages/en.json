@@ -5,6 +5,33 @@
     "scan": "Scan QR",
     "login": "Login"
   },
+  "onboarding": {
+    "title": "Welcome to Package Management",
+    "subtitle": "Complete your profile to continue",
+    "step1": {
+      "title": "What is your role?",
+      "concierge": "I am a Concierge",
+      "conciergeDesc": "I manage building packages",
+      "resident": "I am a Resident",
+      "residentDesc": "I receive packages at my apartment"
+    },
+    "step2": {
+      "title": "Which apartment do you live in?",
+      "placeholder": "Select your apartment",
+      "noApartments": "No apartments registered. Contact the concierge."
+    },
+    "step3": {
+      "title": "All set!",
+      "subtitle": "Your profile has been configured",
+      "cta": "Access the system"
+    },
+    "progress": "Step {current} of {total}",
+    "continue": "Continue",
+    "back": "Go back",
+    "role": "Role",
+    "apartment": "Apartment",
+    "tower": "Tower"
+  },
   "Home": {
     "eyebrow": "Parcel Management · Residential Buildings",
     "heroTitle1": "LOOMBOX",

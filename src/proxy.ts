@@ -10,9 +10,8 @@ export default async function proxy(request: NextRequest) {
   const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });
   const pathname = request.nextUrl.pathname;
 
-  // Next-Auth check for protected dashboard routes
-  // We check if it contains /dashboard to account for locale paths like /es/dashboard
-  if (pathname.includes("/dashboard")) {
+  // Protect routes that require authentication
+  if (pathname.includes("/dashboard") || pathname.includes("/onboarding")) {
     if (!token) {
       // Create new URL, keep locale intact ideally, but for now redirecting to /login
       // If we want localized login we can redirect to `/${routing.defaultLocale}/login`
@@ -20,6 +19,17 @@ export default async function proxy(request: NextRequest) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
 
+    // Onboarding redirection logic
+    const isOnboarding = pathname.includes("/onboarding");
+    if (!token.onboardingComplete && !isOnboarding) {
+      return NextResponse.redirect(new URL("/onboarding", request.url));
+    }
+    if (token.onboardingComplete && isOnboarding) {
+      const dashboardPath = token.role === "CONSERJE" ? "/dashboard/conserje" : "/dashboard/resident";
+      return NextResponse.redirect(new URL(dashboardPath, request.url));
+    }
+
+    // Role-based protection for dashboard routes
     if (pathname.includes("/dashboard/conserje")) {
       if (token.role !== "CONSERJE") {
         return NextResponse.redirect(new URL("/login", request.url));
@@ -38,8 +48,8 @@ export default async function proxy(request: NextRequest) {
 export const config = {
   // Match only internationalized pathnames
   matcher: [
-    '/', 
-    '/(es|en)/:path*', 
+    '/',
+    '/(es|en)/:path*',
     // Match all pathnames except for
     // - … if they start with `/api`, `/_next` or `/_vercel`
     // - … the ones containing a dot (e.g. `favicon.ico`)
