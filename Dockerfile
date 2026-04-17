@@ -3,7 +3,7 @@ FROM oven/bun:1-alpine AS deps
 WORKDIR /app
 
 # Copy dependency manifests
-COPY package.json bun.lockb* ./
+COPY package.json bun.lock* ./
 COPY prisma ./prisma/
 
 # Install dependencies with Bun (frozen lockfile in CI/prod)

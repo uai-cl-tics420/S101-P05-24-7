@@ -10,8 +10,6 @@
 #    Stop:    docker-compose down
 # ════════════════════════════════════════════════════════════════
 
-version: "3.9"
-
 services:
   # ── PostgreSQL (local dev / evaluation only) ───────────────────
   postgres:
