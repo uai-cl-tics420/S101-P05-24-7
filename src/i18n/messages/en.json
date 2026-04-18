@@ -236,5 +236,16 @@
     "lockedOut": "Too many attempts. Try again in {minutes} minutes.",
     "codeSent": "Code sent to your email",
     "success": "Verification successful"
+  },
+  "totp": {
+    "setupTitle": "Set up Google Authenticator",
+    "setupSubtitle": "Scan the QR code with your authenticator app",
+    "verifyTitle": "Two-factor authentication",
+    "subtitle": "Open Google Authenticator and get the code for {email}",
+    "scanInstructions": "Open Google Authenticator and scan this code",
+    "enterCode": "Enter the 6-digit code",
+    "enable": "Enable",
+    "verify": "Verify",
+    "invalidCode": "Incorrect code. Check your app and try again."
   }
 }

@@ -236,5 +236,16 @@
     "lockedOut": "Demasiados intentos. Intenta en {minutes} minutos.",
     "codeSent": "Código enviado a tu correo",
     "success": "Verificación exitosa"
+  },
+  "totp": {
+    "setupTitle": "Configura Google Authenticator",
+    "setupSubtitle": "Escanea el código QR con tu app autenticadora",
+    "verifyTitle": "Autenticación en dos pasos",
+    "subtitle": "Abre Google Authenticator y obtén el código para {email}",
+    "scanInstructions": "Abre Google Authenticator y escanea este código",
+    "enterCode": "Ingresa el código de 6 dígitos",
+    "enable": "Activar",
+    "verify": "Verificar",
+    "invalidCode": "Código incorrecto. Verifica tu app e intenta nuevamente."
   }
 }

@@ -66,9 +66,11 @@ export const authOptions: NextAuthOptions = {
         const dbUser = await prisma.user.findUnique({
           where: { id: token.id as string },
           select: {
+            id: true,
             role: true,
             apartment: true,
             onboardingComplete: true,
+            totpEnabled: true,
             trustedDevices: {
               where: { expiresAt: { gt: new Date() } }
             }
@@ -78,14 +80,15 @@ export const authOptions: NextAuthOptions = {
           token.role = dbUser.role;
           token.apartment = dbUser.apartment;
           token.onboardingComplete = dbUser.onboardingComplete;
-          
+          token.totpEnabled = dbUser.totpEnabled;
+
           // Check trusted device or explicit verification
-          const cookieStore = cookies();
+          const cookieStore = await cookies();
           const trustedCookie = cookieStore.get("loombox_trusted_device")?.value;
-          
+
           let isTrusted = false;
           if (trustedCookie && dbUser.trustedDevices.some(td => td.token === trustedCookie)) {
-             isTrusted = true;
+            isTrusted = true;
           }
 
           const otpSession = await prisma.otpSession.findFirst({

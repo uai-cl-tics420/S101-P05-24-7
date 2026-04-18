@@ -6,7 +6,7 @@ Sistema de gestión eficiente de paquetes y correspondencia en edificios residen
 
 ## Equipo
 - 2 desarrolladores
-- Product Owner: Nicolás Cenzano
+- Product Owner: Nicolás Escobar
 - Repositorio: https://github.com/TomTowerg/Gestion-de-encomiendas
 
 ## Stack tecnológico

@@ -11,30 +11,30 @@ export default async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Protect routes that require authentication
-  if (pathname.includes("/dashboard") || pathname.includes("/onboarding")) {
+  const isAuthAPI = pathname.startsWith("/api/auth");
+  const isVerifyTOTP = pathname.includes("/auth/verify-totp");
+  const isSetupTOTP = pathname.includes("/auth/setup-totp");
+  const isOnboarding = pathname.includes("/onboarding");
+  const isDashboard = pathname.includes("/dashboard");
+
+  if (isDashboard || isOnboarding || isVerifyTOTP || isSetupTOTP) {
     if (!token) {
-      // Create new URL, keep locale intact ideally, but for now redirecting to /login
-      // If we want localized login we can redirect to `/${routing.defaultLocale}/login`
-      // For simplicity, we redirect to login using the current request URL
       return NextResponse.redirect(new URL("/login", request.url));
     }
 
     // Onboarding redirection logic
-    const isOnboarding = pathname.includes("/onboarding");
     if (!token.onboardingComplete && !isOnboarding) {
       return NextResponse.redirect(new URL("/onboarding", request.url));
     }
 
-    // OTP Verification redirection logic
-    const isVerifyOTP = pathname.includes("/auth/verify-otp");
-    // API logic allows sending OTPs untouched
-    const isAuthAPI = pathname.startsWith("/api/auth");
-    
-    if (token.onboardingComplete && !token.otpVerified && !isVerifyOTP && !isAuthAPI) {
-      return NextResponse.redirect(new URL("/auth/verify-otp", request.url));
+    // TOTP Verification redirection logic
+    if (token.onboardingComplete && !token.otpVerified && !isVerifyTOTP && !isSetupTOTP && !isAuthAPI) {
+      const totpEnabled = (token as any).totpEnabled;
+      const dest = totpEnabled ? "/auth/verify-totp" : "/auth/setup-totp";
+      return NextResponse.redirect(new URL(dest, request.url));
     }
 
-    if (token.onboardingComplete && token.otpVerified && (isOnboarding || isVerifyOTP)) {
+    if (token.onboardingComplete && token.otpVerified && (isOnboarding || isVerifyTOTP || isSetupTOTP)) {
       const dashboardPath = token.role === "CONSERJE" ? "/dashboard/conserje" : "/dashboard/resident";
       return NextResponse.redirect(new URL(dashboardPath, request.url));
     }

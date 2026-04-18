@@ -10,14 +10,7 @@ export function generateOTP(): string {
 
 export async function sendOTPEmail(email: string, otp: string, locale: string) {
   // Nodemailer config, using environment variables natively
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_SERVER_HOST || "localhost",
-    port: parseInt(process.env.EMAIL_SERVER_PORT || "1025"),
-    auth: process.env.EMAIL_SERVER_USER ? {
-      user: process.env.EMAIL_SERVER_USER,
-      pass: process.env.EMAIL_SERVER_PASSWORD,
-    } : undefined,
-  });
+  const transporter = nodemailer.createTransport(process.env.EMAIL_SERVER || "smtp://localhost:1025");
 
   const isEs = locale === 'es' || locale === 'es-CL';
   const subject = isEs ? "Tu código de verificación - Loombox" : "Your verification code - Loombox";
@@ -34,7 +27,7 @@ export async function sendOTPEmail(email: string, otp: string, locale: string) {
         <span style="font-size: 32px; font-weight: bold; letter-spacing: 6px; color: #111827;">${otp}</span>
       </div>
       <p style="font-size: 13px; color: #6b7280;">
-        ${isEs ? 'El código expirará en 10 minutos. Si no fuiste tú, puedes ignorar este correo.' : 'This code will expire in 10 minutes. If this wasn\\'t you, you can ignore this email.'}
+        ${isEs ? 'El código expirará en 10 minutos. Si no fuiste tú, puedes ignorar este correo.' : 'This code will expire in 10 minutes. If this wasn&#39;t you, you can ignore this email.'}
       </p>
     </div>
   `;

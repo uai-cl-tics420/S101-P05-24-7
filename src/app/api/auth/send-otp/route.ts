@@ -20,11 +20,11 @@ export async function POST(req: Request) {
 
     const timestamps = rateLimitMap.get(email) || [];
     const validTimestamps = timestamps.filter(t => now - t < fiveMinutes);
-    
+
     if (validTimestamps.length >= 3) {
       return NextResponse.json({ error: "Too many requests. Please wait." }, { status: 429 });
     }
-    
+
     validTimestamps.push(now);
     rateLimitMap.set(email, validTimestamps);
 
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
 
     // 1. Generate 6-digit OTP
     const otp = generateOTP();
-    
+
     // 2. Clear old ones and save hashed new OTP
     await storeOTP(email, otp);
 
