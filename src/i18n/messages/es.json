@@ -222,5 +222,19 @@
     "errorGeneric": "Ocurrió un error al intentar iniciar el escáner.",
     "success": "Código detectado con éxito",
     "invalid": "El código escaneado no es válido para este sistema"
+  },
+  "otp": {
+    "title": "Verificación en dos pasos",
+    "subtitle": "Ingresa el código enviado a {email}",
+    "inputLabel": "Código de verificación",
+    "verify": "Verificar",
+    "resend": "Reenviar código",
+    "resendIn": "Reenviar en {seconds}s",
+    "trustDevice": "Confiar en este dispositivo por 30 días",
+    "invalidCode": "Código incorrecto. {attempts} intentos restantes.",
+    "expiredCode": "El código ha expirado. Solicita uno nuevo.",
+    "lockedOut": "Demasiados intentos. Intenta en {minutes} minutos.",
+    "codeSent": "Código enviado a tu correo",
+    "success": "Verificación exitosa"
   }
 }

@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import EmailProvider from "next-auth/providers/email";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
+import { cookies } from "next/headers";
 
 /**
  * Central NextAuth configuration.
@@ -67,13 +68,34 @@ export const authOptions: NextAuthOptions = {
           select: {
             role: true,
             apartment: true,
-            onboardingComplete: true
+            onboardingComplete: true,
+            trustedDevices: {
+              where: { expiresAt: { gt: new Date() } }
+            }
           },
         });
         if (dbUser) {
           token.role = dbUser.role;
           token.apartment = dbUser.apartment;
           token.onboardingComplete = dbUser.onboardingComplete;
+          
+          // Check trusted device or explicit verification
+          const cookieStore = cookies();
+          const trustedCookie = cookieStore.get("loombox_trusted_device")?.value;
+          
+          let isTrusted = false;
+          if (trustedCookie && dbUser.trustedDevices.some(td => td.token === trustedCookie)) {
+             isTrusted = true;
+          }
+
+          const otpSession = await prisma.otpSession.findFirst({
+            where: {
+              userId: dbUser.id,
+              expiresAt: { gt: new Date() }
+            }
+          });
+
+          token.otpVerified = isTrusted || !!otpSession;
         }
       }
 
@@ -87,6 +109,7 @@ export const authOptions: NextAuthOptions = {
         session.user.role = token.role as import("@prisma/client").UserRole;
         (session.user as any).apartment = token.apartment;
         (session.user as any).onboardingComplete = token.onboardingComplete;
+        (session.user as any).otpVerified = token.otpVerified;
       }
       return session;
     },

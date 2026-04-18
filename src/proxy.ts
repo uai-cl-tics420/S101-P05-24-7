@@ -24,7 +24,17 @@ export default async function proxy(request: NextRequest) {
     if (!token.onboardingComplete && !isOnboarding) {
       return NextResponse.redirect(new URL("/onboarding", request.url));
     }
-    if (token.onboardingComplete && isOnboarding) {
+
+    // OTP Verification redirection logic
+    const isVerifyOTP = pathname.includes("/auth/verify-otp");
+    // API logic allows sending OTPs untouched
+    const isAuthAPI = pathname.startsWith("/api/auth");
+    
+    if (token.onboardingComplete && !token.otpVerified && !isVerifyOTP && !isAuthAPI) {
+      return NextResponse.redirect(new URL("/auth/verify-otp", request.url));
+    }
+
+    if (token.onboardingComplete && token.otpVerified && (isOnboarding || isVerifyOTP)) {
       const dashboardPath = token.role === "CONSERJE" ? "/dashboard/conserje" : "/dashboard/resident";
       return NextResponse.redirect(new URL(dashboardPath, request.url));
     }

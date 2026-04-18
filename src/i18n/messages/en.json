@@ -222,5 +222,19 @@
     "errorGeneric": "An error occurred while trying to start the scanner.",
     "success": "Code detected successfully",
     "invalid": "The scanned code is not valid for this system"
+  },
+  "otp": {
+    "title": "Two-step verification",
+    "subtitle": "Enter the code sent to {email}",
+    "inputLabel": "Verification code",
+    "verify": "Verify",
+    "resend": "Resend code",
+    "resendIn": "Resend in {seconds}s",
+    "trustDevice": "Trust this device for 30 days",
+    "invalidCode": "Incorrect code. {attempts} attempts remaining.",
+    "expiredCode": "Code has expired. Request a new one.",
+    "lockedOut": "Too many attempts. Try again in {minutes} minutes.",
+    "codeSent": "Code sent to your email",
+    "success": "Verification successful"
   }
 }
