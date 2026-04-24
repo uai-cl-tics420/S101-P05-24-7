@@ -180,7 +180,27 @@
     "f2": "Real-time notifications",
     "f3": "QR code generation and scanning",
     "f4": "Resident management",
-    "f5": "Delivery tracking and statistics"
+    "f5": "Delivery tracking and statistics",
+    "receivedBy": "Picked up by"
+  },
+  "VerificationModal": {
+    "title": "Verify Delivery",
+    "loadingText": "Looking up package...",
+    "location": "Location",
+    "apt": "Apt",
+    "tower": "Tower",
+    "receivedSince": "Received on",
+    "description": "Description",
+    "alreadyDelivered": "Already delivered",
+    "close": "Close",
+    "cancel": "Cancel",
+    "receiverLabel": "Name of recipient",
+    "receiverPlaceholder": "e.g. John Doe",
+    "confirmButton": "CONFIRM DELIVERY",
+    "confirming": "Processing...",
+    "errorNotFound": "Could not find the package information",
+    "errorReceiverRequired": "You must enter the name of the person picking up the package",
+    "errorTitle": "Error"
   },
   "Resident": {
     "title": "My Parcels",

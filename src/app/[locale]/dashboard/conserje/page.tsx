@@ -15,6 +15,7 @@ interface PackageData {
   trackingCode: string;
   status: string;
   createdAt: string;
+  receiverName: string | null;
   apartment: {
     number: string;
     tower: string | null;
@@ -175,19 +176,20 @@ export default function ConciergeDashboard() {
                     <th className="px-8 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t('tracking')}</th>
                     <th className="px-8 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t('apt')}</th>
                     <th className="px-8 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t('status')}</th>
+                    <th className="px-8 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest hidden md:table-cell">{t('receivedBy')}</th>
                     <th className="px-8 py-4 text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t('date')}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
                   {isLoadingPackages ? (
                     <tr>
-                      <td colSpan={4} className="px-8 py-10 text-center">
+                      <td colSpan={5} className="px-8 py-10 text-center">
                         <Loader2 className="w-8 h-8 animate-spin text-slate-200 mx-auto" />
                       </td>
                     </tr>
                   ) : packages.length === 0 ? (
                     <tr>
-                      <td colSpan={4} className="px-8 py-12 text-center text-slate-400 font-medium italic">
+                      <td colSpan={5} className="px-8 py-12 text-center text-slate-400 font-medium italic">
                         {t('noPackages')}
                       </td>
                     </tr>
@@ -202,6 +204,13 @@ export default function ConciergeDashboard() {
                         </td>
                         <td className="px-8 py-4">
                           <StatusBadge status={pkg.status} t={t} />
+                        </td>
+                        <td className="px-8 py-4 hidden md:table-cell">
+                          {pkg.receiverName ? (
+                            <span className="text-xs font-semibold text-slate-700">{pkg.receiverName}</span>
+                          ) : (
+                            <span className="text-xs text-slate-300 font-medium">—</span>
+                          )}
                         </td>
                         <td className="px-8 py-4 text-xs text-slate-400 font-medium">
                           {new Date(pkg.createdAt).toLocaleDateString()} {new Date(pkg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}

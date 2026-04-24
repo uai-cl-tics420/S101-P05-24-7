@@ -39,6 +39,7 @@ export async function PATCH(
         status: "DELIVERED",
         pickedUpAt: new Date(),
         receiverName: receiverName.trim(),
+        pickedUpById: token.id as string,
         events: {
           create: {
             type: "PICKED_UP",
