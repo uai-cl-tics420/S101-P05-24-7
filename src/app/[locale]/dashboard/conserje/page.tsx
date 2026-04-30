@@ -1,6 +1,6 @@
 "use client";
 
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
@@ -8,7 +8,7 @@ import PackageRegistrationForm from "@/components/PackageRegistrationForm";
 import QRScanner from "@/components/QRScanner";
 import PackageVerificationModal from "@/components/PackageVerificationModal";
 import ApartmentManager from "@/components/ApartmentManager";
-import { Loader2, LogOut, Package, Clock, CheckCircle2, History, User, QrCode } from "lucide-react";
+import { Loader2, Package, Clock, CheckCircle2, History, User, QrCode } from "lucide-react";
 
 interface PackageData {
   id: string;
@@ -83,30 +83,7 @@ export default function ConciergeDashboard() {
   }).length;
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] pt-[68px]">
-      {/* Header */}
-      <div className="bg-white border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <div className="bg-indigo-600 p-2.5 rounded-xl shadow-lg shadow-indigo-200">
-              <Package className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-slate-900 tracking-tight">{t("title")}</h1>
-              <p className="text-slate-500 text-sm font-medium">{t("subtitle")}</p>
-            </div>
-          </div>
-          <button
-            onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
-            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold transition-all duration-200 text-sm"
-          >
-            <LogOut className="w-4 h-4" />
-            {t("signOut").toUpperCase()}
-          </button>
-        </div>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 py-10 space-y-10">
+    <div className="p-6 md:p-10 space-y-10 pb-24 md:pb-10">
         
         {/* Welcome Section */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -252,7 +229,6 @@ export default function ConciergeDashboard() {
             }}
           />
         )}
-      </div>
     </div>
   );
 }
