@@ -303,6 +303,45 @@
     "noResident": "No resident",
     "empty": "No apartments registered yet. Add the first one."
   },
+  "Profile": {
+    "title": "My Profile",
+    "subtitle": "Manage your personal information and security settings",
+    "personalInfo": "Personal Information",
+    "security": "Security",
+    "role": "Role",
+    "apartment": "Apartment",
+    "enable2FA": "Enable Two-Factor Authentication",
+    "disable2FA": "Disable Two-Factor Authentication",
+    "twoFactorDesc": "Protect your account with a Google Authenticator TOTP code.",
+    "scanQR": "Scan this QR code with your Authenticator App",
+    "enterCode": "Enter the 6-digit code to verify",
+    "verify": "Verify Code",
+    "disableConfirm": "Are you sure you want to disable 2FA? This lowers your account security.",
+    "enabledSuccess": "Two-Factor Authentication successfully enabled",
+    "disabledSuccess": "Two-Factor Authentication has been disabled"
+  },
+  "Users": {
+    "title": "Manage Users",
+    "subtitle": "Administrate residents and concierge staff roles",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "status": "Status",
+    "actions": "Actions",
+    "promote": "Make Concierge",
+    "demote": "Make Resident",
+    "active": "Active",
+    "pending": "Pending Onboarding",
+    "success": "User updated successfully"
+  },
+  "Reports": {
+    "title": "Reports & Analytics",
+    "subtitle": "Visualize package flow and concierge statistics",
+    "packagesLast7Days": "Packages Over Last 7 Days",
+    "statusDistribution": "Current Status Distribution",
+    "totalProcessed": "Total Processed",
+    "mostActiveTower": "Most Active Tower"
+  },
   "otp": {
     "title": "Two-step verification",
     "subtitle": "Enter the code sent to {email}",

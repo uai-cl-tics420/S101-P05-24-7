@@ -96,13 +96,33 @@ export default function ConciergeDashboard() {
               <p className="text-slate-500 text-sm font-medium">{t("subtitle")}</p>
             </div>
           </div>
-          <button
-            onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
-            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold transition-all duration-200 text-sm"
-          >
-            <LogOut className="w-4 h-4" />
-            {t("signOut").toUpperCase()}
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => router.push("/dashboard/conserje/reports")}
+              className="inline-flex items-center justify-center px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold transition-all duration-200 text-sm"
+            >
+              Reports
+            </button>
+            <button
+              onClick={() => router.push("/dashboard/conserje/users")}
+              className="inline-flex items-center justify-center px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold transition-all duration-200 text-sm"
+            >
+              Users
+            </button>
+            <button
+              onClick={() => router.push("/dashboard/profile")}
+              className="inline-flex items-center justify-center px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-bold transition-all duration-200 text-sm"
+            >
+              Profile
+            </button>
+            <button
+              onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
+              className="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-red-50 hover:bg-red-100 text-red-600 rounded-xl font-bold transition-all duration-200 text-sm border border-red-100"
+            >
+              <LogOut className="w-4 h-4" />
+              {t("signOut").toUpperCase()}
+            </button>
+          </div>
         </div>
       </div>
 
