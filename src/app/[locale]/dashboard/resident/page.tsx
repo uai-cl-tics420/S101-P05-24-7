@@ -110,13 +110,21 @@ export default function ResidentDashboard() {
               {t('subtitle')}
             </p>
           </div>
-          <button
-            onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
-            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white/[0.03] hover:bg-white/[0.08] text-white/70 hover:text-white rounded-xl border border-white/[0.06] font-semibold transition-all duration-200"
-          >
-            <LogOut className="w-4 h-4" />
-            <span className="text-xs uppercase tracking-widest">{t('signOut')}</span>
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => router.push("/dashboard/profile")}
+              className="inline-flex items-center justify-center px-5 py-2.5 bg-white/[0.03] hover:bg-white/[0.08] text-white/70 hover:text-white rounded-xl border border-white/[0.06] font-semibold transition-all duration-200"
+            >
+              <span className="text-xs uppercase tracking-widest">Profile</span>
+            </button>
+            <button
+              onClick={() => signOut({ redirect: true, callbackUrl: "/" })}
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 rounded-xl border border-red-500/20 font-semibold transition-all duration-200"
+            >
+              <LogOut className="w-4 h-4" />
+              <span className="text-xs uppercase tracking-widest">{t('signOut')}</span>
+            </button>
+          </div>
         </div>
       </div>
 
